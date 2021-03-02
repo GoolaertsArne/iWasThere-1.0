@@ -6,43 +6,31 @@ import { ApplicationProvider, Layout, Text } from "@ui-kitten/components";
 import { UserList } from "./components/UserList";
 import SignUser from "./components/SignUser";
 import * as SQLite from "expo-sqlite";
+import {UserDAL} from "./database/UserDAL"
+
 
 class App extends React.Component {
-  db = undefined;
+
   constructor(props) {
     super(props);
     this.state = {
+      users: undefined,
       location: undefined,
       lat: undefined,
       lng: undefined,
-      db: undefined,
       result: undefined,
     };
-  }
-  componentDidMount() {
 
-    const db = SQLite.openDatabase("iWasThere", 1);
-    db.transaction(
-      (tx) => {
-        tx.executeSql(
-          "select name from users;",
-          [],
-          (tx, res) => {
-            `console.log(res.rows[0])`;
-          },
-          () => console.log("nothing happened")
-        );
-      },
-      [],
-      (success) => {
-        console.log("success");
-      },
-      (error) => {
-        console.log("error");
-      }
-    );
+    
   }
+  async componentDidMount() {
+    const db = new UserDAL();
+    await db.getAllUsers(["firstName"]).then(data => {
+      this.setState({users: data._array});
 
+    });
+  }
+  
 
   watchID = null;
 
@@ -93,7 +81,7 @@ class App extends React.Component {
         <UserList /> */}
       <SignUser />
         <View>
-          <Text>test</Text>
+          <Text>{this.state.users[0]?.firstName}</Text>
         </View>
       </ApplicationProvider>
     );
