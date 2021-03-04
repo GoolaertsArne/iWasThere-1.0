@@ -6,7 +6,8 @@ import { ApplicationProvider, Layout, Text } from "@ui-kitten/components";
 import { UserList } from "./components/UserList";
 import SignUser from "./components/SignUser";
 import * as SQLite from "expo-sqlite";
-import { UserDAL } from "./database/UserDAL"
+import { UserDAL } from "./database/UserDAL";
+import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
 
 
 class App extends React.Component {
@@ -22,16 +23,20 @@ class App extends React.Component {
       result: undefined,
     };
 
-
   }
   async componentDidMount() {
     const db = new UserDAL();
     await db.getAllUsers(["firstName"]).then(data => {
       this.setState({ users: data._array });
-
+      console.log(this.state.users[0]?.firstName)
     });
   }
-
+  renderItem() {
+   
+    return (
+      <Text>{this.state.users[0]?.firstName}</Text>
+    );
+  }
 
   watchID = null;
 
@@ -80,13 +85,7 @@ class App extends React.Component {
           {this.state.location + " " + this.state.lat + " " + this.state.lng}
         </Text>
         <UserList /> */}
-       
         <SignUser />
-       {/*
-        <View> <Text>{this.state.users[0]?.firstName}</Text>
-         </View> */} 
-      
-   
       </ApplicationProvider>
     );
   }
