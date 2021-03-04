@@ -5,7 +5,7 @@ export class UserDAL {
     const db = SQLite.openDatabase("iWasThere", 1);
     return new Promise(resolve => {
         db.transaction(
-            (tx) => tx.executeSql(this._queryBuilder(cols, null, null), [], (txr, res) => resolve(res.rows), (err) => console.log("err")),
+            (tx) => tx.executeSql(this._selectQueryBuilder(cols, null, null), [], (txr, res) => resolve(res.rows), (err) => console.log("err")),
             (err) => console.log("err"),
             (success) => console.log("success"));
     });

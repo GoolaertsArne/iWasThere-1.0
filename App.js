@@ -6,12 +6,13 @@ import { ApplicationProvider, Layout, Text } from "@ui-kitten/components";
 import { UserList } from "./components/UserList";
 import SignUser from "./components/SignUser";
 import * as SQLite from "expo-sqlite";
-import {UserDAL} from "./database/UserDAL"
+import { UserDAL } from "./database/UserDAL"
 
 
 class App extends React.Component {
 
   constructor(props) {
+   /*} this.addData = this.addDate.bind(this); */
     super(props);
     this.state = {
       users: undefined,
@@ -21,16 +22,16 @@ class App extends React.Component {
       result: undefined,
     };
 
-    
+
   }
   async componentDidMount() {
     const db = new UserDAL();
     await db.getAllUsers(["firstName"]).then(data => {
-      this.setState({users: data._array});
+      this.setState({ users: data._array });
 
     });
   }
-  
+
 
   watchID = null;
 
@@ -79,10 +80,13 @@ class App extends React.Component {
           {this.state.location + " " + this.state.lat + " " + this.state.lng}
         </Text>
         <UserList /> */}
-      <SignUser />
-        <View>
-          <Text>{this.state.users[0]?.firstName}</Text>
-        </View>
+       
+        <SignUser />
+       {/*
+        <View> <Text>{this.state.users[0]?.firstName}</Text>
+         </View> */} 
+      
+   
       </ApplicationProvider>
     );
   }
