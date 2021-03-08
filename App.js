@@ -1,19 +1,24 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
 import { StyleSheet, View, Button } from "react-native";
 import { mapping, light } from "@eva-design/eva";
-import { ApplicationProvider, Layout, Text } from "@ui-kitten/components";
 import { UserList } from "./components/UserList";
 import SignUser from "./components/SignUser";
 import * as SQLite from "expo-sqlite";
 import { UserDAL } from "./database/UserDAL";
 import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
+import Test from "./components/Test";
+import { NavigationContainer } from '@react-navigation/native';
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import {createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+
+const Tab = createBottomTabNavigator();
 
 class App extends React.Component {
 
   constructor(props) {
-   /*} this.addData = this.addDate.bind(this); */
+    /*} this.addData = this.addDate.bind(this); */
     super(props);
     this.state = {
       users: undefined,
@@ -32,7 +37,7 @@ class App extends React.Component {
     });
   }
   renderItem() {
-   
+
     return (
       <Text>{this.state.users[0]?.firstName}</Text>
     );
@@ -80,18 +85,28 @@ class App extends React.Component {
   // }
   render() {
     return (
-      <ApplicationProvider mapping={mapping} theme={light}>
-        {/* <Text style={{ left: 50 }}>
+      /* <Text style={{ left: 50 }}>
           {this.state.location + " " + this.state.lat + " " + this.state.lng}
         </Text>
-        <UserList /> */}
-        <SignUser />
-      </ApplicationProvider>
-    );
+        <UserList /> */
+      < NavigationContainer >
+      <Tab.Navigator
+        tabBarOptions={{
+          activeTintColor: 'blue',
+          inactiveTintColor: 'gray',
+          labelStyle: {
+            fontSize: 20
+          }
+        }}>
+        <Tab.Screen
+          name='Test'
+          component={Test}
+        />
+      </Tab.Navigator>
+     </NavigationContainer >
+    )
   }
 }
-
-
 
 
 const styles = StyleSheet.create({
