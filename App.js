@@ -6,10 +6,8 @@ import {Dimensions} from 'react-native';
 
 import {Feather} from '@expo/vector-icons';
 
-import {
-  SignUserScreen, 
-  UserListScreen
-} from './screens';
+import SignUserScreen from './screens/SignUserScreen'; 
+import UserListScreen from './screens/UserListScreen';
 
 import Sidebar from './components/SideBar';
 
