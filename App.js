@@ -5,18 +5,17 @@ import { UserList } from "./components/UserList";
 import SignUser from "./components/SignUser";
 import * as SQLite from "expo-sqlite";
 import { UserDAL } from "./database/UserDAL";
-import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
+import { Table, TableWrapper, Row, Cell } from "react-native-table-component";
 import Test from "./components/Test";
-import { NavigationContainer } from '@react-navigation/native';
-import 'react-native-gesture-handler';
-import * as React from 'react';
-import {createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
+import { NavigationContainer } from "@react-navigation/native";
+import "react-native-gesture-handler";
+import * as React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import AddUser from "./components/AddUser";
 
 const Tab = createBottomTabNavigator();
 
 class App extends React.Component {
-
   constructor(props) {
     /*} this.addData = this.addDate.bind(this); */
     super(props);
@@ -26,21 +25,25 @@ class App extends React.Component {
       lat: undefined,
       lng: undefined,
       result: undefined,
+      db: new UserDAL()
     };
-
+    try {
+      this.state.db.createDB();
+    } catch {
+    }
   }
   async componentDidMount() {
-    const db = new UserDAL();
-    await db.getAllUsers(["firstName"]).then(data => {
-      this.setState({ users: data._array });
-      console.log(this.state.users[0]?.firstName)
-    });
+    //gaat niet in de if statement, dus insert geen data. voor wat staat de dbMounted?
+    //this.state.db.insertTest();
+    //this.state.db.getAllUsers(["firstName"]).then(res => console.log(res));
+    
+      // do this one at a time (first insert then getAllUsers)
+      this.state.db.getAllUsers(["firstName"]).then(data => console.log(data));
   }
   renderItem() {
-
-    return (
-      <Text>{this.state.users[0]?.firstName}</Text>
-    );
+    // return (
+    //   <Text>{this.state.users[0]?.firstName}</Text>
+    // );
   }
 
   watchID = null;
@@ -89,8 +92,8 @@ class App extends React.Component {
           {this.state.location + " " + this.state.lat + " " + this.state.lng}
         </Text>
         <UserList /> */
-      < NavigationContainer >
-      <Tab.Navigator
+      <NavigationContainer>
+        <Tab.Navigator
         tabBarOptions={{
           activeTintColor: 'blue',
           inactiveTintColor: 'gray',
@@ -102,12 +105,15 @@ class App extends React.Component {
           name='Test'
           component={Test}
         />
+        <Tab.Screen
+          name='AddUser'
+          component={AddUser}
+        />
       </Tab.Navigator>
-     </NavigationContainer >
-    )
+      </NavigationContainer>
+    );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {

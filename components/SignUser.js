@@ -27,6 +27,7 @@ class SignUser extends React.Component {
   };
   saveButtonAction = () => {
     console.log(this.state.image);
+    //navigate to list or details
   };
   createSignaturePad = () => {
     this.signaturePad = React.createElement(SignaturePad, {
