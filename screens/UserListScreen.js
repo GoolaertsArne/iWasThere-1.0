@@ -1,9 +1,12 @@
 import React from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, SafeAreaView} from 'react-native';
 import Screen from '../components/Screen';
+import UserList from '../components/UserList';
 
 export default UserListScreen = ({navigation}) => (
-    <ScrollView>
+    <SafeAreaView style={{flex:1}}>
         <Screen navigation={navigation} name="UserList" />
-    </ScrollView>
+
+        <UserList />
+    </SafeAreaView>
 )

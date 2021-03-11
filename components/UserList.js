@@ -1,72 +1,61 @@
-import React from "react";
-import { StyleSheet, Dimensions } from "react-native";
-import {
-  Layout,
-  Text,
-  Card,
-  Input,
-  Button,
-  ListItem,
-  List,
-} from "@ui-kitten/components";
-
-export const UserList = () => {
-  const [value, setValue] = React.useState("");
-  const data = ["Demo1", "Demo2"];
-  const renderItemAccessory = (props) => <Button size="tiny">Details</Button>;
-
-  const renderItem = ({ item, index }) => (
-    <ListItem
-      title={item}
-      description={item}
-      accessoryRight={renderItemAccessory}
-    />
-  );
-
-  return (
-    <Layout style={styles.container}>
-      <Layout style={styles.input}>
-        <Input
-          placeholder="Search"
-          value={value}
-          onChangeText={(nextValue) => setValue(nextValue)}
-        />
-      </Layout>
-
-      <Layout style={styles.userContainer}>
-        <Card style={styles.userList}>
-          <List data={data} renderItem={renderItem} />
-        </Card>
-        <Card style={styles.userDetail}>
-          <Text>UserDetail</Text>
-        </Card>
-      </Layout>
-    </Layout>
-  );
-};
+import React, {useState} from 'react';
+import { SectionList, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: "column",
-    top: 25,
-    alignItems: "stretch",
+   flex: 1,
+   paddingTop: 22
   },
-  input: {
-    width: 500,
-    left: Dimensions.get("window").width / 2 - 250,
+  sectionHeader: {
+    paddingTop: 2,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingBottom: 2,
+    fontSize: 14,
+    fontWeight: 'bold',
+    backgroundColor: 'rgba(247,247,247,1.0)',
   },
-  userContainer: {
-    top: 25,
-    flexDirection: "row",
-    justifyContent: "space-around",
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
   },
-  userList: {
-    flex: 0.48,
-    height: Dimensions.get("window").height,
-  },
-  userDetail: {
-    flex: 0.48,
-    height: Dimensions.get("window").height,
-  },
-});
+})
+
+// const Item = ({ item, onPress, style }) => (
+//     <TouchableOpacity onPress={onPress} style={[styles.item, style]}>
+//       <Text style={styles.title}>{item.title}</Text>
+//     </TouchableOpacity>
+//   );
+
+const UserList = () => {
+    // const [selectedId, setSelectedId] = useState(null);
+    
+    // const renderItem = ({ item }) => {
+    //     const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
+    
+    //     return (
+    //       <Item
+    //         item={item}
+    //         onPress={() => setSelectedId(item.id)}
+    //         style={{ backgroundColor }}
+    //       />
+    //     );
+    // };
+
+    return (
+      <View style={styles.container}>
+        <SectionList
+          sections={[
+            {title: 'D', data: ['Devin', 'Dan', 'Dominic']},
+            {title: 'J', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie']},
+          ]}
+          renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
+          renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
+          keyExtractor={(item, index) => index}
+        />
+      </View>
+    );
+}
+
+export default UserList;
