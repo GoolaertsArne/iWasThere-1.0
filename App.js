@@ -9,6 +9,7 @@ import {Feather} from '@expo/vector-icons';
 import SignUserScreen from './screens/SignUserScreen'; 
 import UserListScreen from './screens/UserListScreen';
 import AdminLoginScreen from './screens/AdminLoginScreen';
+import LocationScreen from './screens/LocationScreen';
 
 import Sidebar from './components/SideBar';
 
@@ -21,6 +22,9 @@ const DrawerNavigator = createDrawerNavigator({
   },
   AdminLoginScreen: {
     screen: AdminLoginScreen
+  },
+  LocationScreen: {
+    screen: LocationScreen
   }
 },{
   contentComponent: props => <Sidebar {...props} />,
