@@ -27,6 +27,7 @@
     "react-dom": "16.13.1",
     "react-native": "~0.63.4",
     "react-native-canvas": "^0.1.37",
+    "react-native-geocode": "^0.1.0",
     "react-native-geocoder": "^0.5.0",
     "react-native-gesture-handler": "~1.8.0",
     "react-native-location": "^2.5.0",
